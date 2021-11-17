@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteBase /videoconversionservice/api/
+
+RewriteRule ^/?([a-z]+)/(.*)$ index.php?$1=$2
