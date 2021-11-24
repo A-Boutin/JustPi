@@ -1,6 +1,6 @@
 <?php
     require_once('../controllers/clientController.php');
-    class Client{
+    class History{
         private $historyId;
         private $formulaId;
         private $userId;
@@ -25,9 +25,9 @@
         }
 
         function insert(){
-            $query = 'INSERT INTO history (formula_id, user_id, variables, result, creation_date) VALUES (:formula_id, :user_id, :variables, :result, :creation_date)';
+            $query = 'INSERT INTO history (formula_id, user_id, variables, result) VALUES (:formula_id, :user_id, :variables, :result)';
             $statement = $this->dbConnection->prepare($query);
-            $statement->execute(['formula_id'=>$this->formulaId, 'user_id'=>$this->userId, 'variables'=>$this->variables, 'result'=>$this->result, 'creation_date'=>$this->creationDate]);
+            $statement->execute(['formula_id'=>$this->formulaId, 'user_id'=>$this->userId, 'variables'=>$this->variables, 'result'=>$this->result);
         }
 }
 ?>

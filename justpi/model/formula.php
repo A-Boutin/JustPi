@@ -1,6 +1,6 @@
 <?php
     require_once('../controllers/clientController.php');
-    class Client{
+    class Formula{
         private $formulaId;
         private $variables;
         private $formula;

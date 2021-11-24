@@ -20,7 +20,20 @@
                 $finishedFormula = str_replace($formulaVariables[i], $variables[i], $finishedFormula);
             }
             $result = eval('return '.$finishedFormula.';');
+            return $result;
         }
+
+        function insert($json){
+            $result = calculateResult($json["formulaId"], $json["variables"]);
+            $history = new history($json["formulaId"], $json["userId"], $json["variables"], $result);
+            $history->insert();
+        }
+
+        // function insert($json){
+        //     $videoconversion = new videoconversion($json["clientID"], $json["requestDate"], $json["requestCompletionDate"], $json["originalFormat"], $json["targetFormat"], $json["file"], $json["outputFile"]);
+        //     // var_dump($videoconversion);
+        //     $videoconversion->insert();
+        // }
 
         // function getClient($licenseKey){
         //     $client = new client();

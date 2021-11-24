@@ -52,26 +52,29 @@
                 $response->payload = json_encode($controller->getAllClients());
             }
             else if($request->verb == "POST"){
-                $payload = json_decode($request->payload, true);
-                $client = new clientController();
-                $clientID = $client->getClient($payload["licenseKey"])["clientID"];
-                $fileName = strtok($payload['file'], '.');
-                $outputFileFormat = explode('/', $payload["targetFormat"])[1];
-                $insertPayload = json_encode(array(
-                    'clientID'=>$clientID,
-                    'requestDate'=>date("Y/m/d"),
-                    'requestCompletionDate'=>date("Y/m/d"),
-                    'originalFormat'=>$payload["originalFormat"],
-                    'targetFormat'=>$payload["targetFormat"],
-                    'file'=>$payload["file"],
-                    'outputFile'=>$fileName.'.'.$outputFileFormat
-                ));
-                $insertPayload = json_decode($insertPayload,true);
-                $controller->insert($insertPayload);
+                // $payload = json_decode($request->payload, true);
+                // $client = new clientController();
+                // $clientID = $client->getClient($payload["licenseKey"])["clientID"];
+                // $fileName = strtok($payload['file'], '.');
+                // $outputFileFormat = explode('/', $payload["targetFormat"])[1];
+                // $insertPayload = json_encode(array(
+                //     'clientID'=>$clientID,
+                //     'requestDate'=>date("Y/m/d"),
+                //     'requestCompletionDate'=>date("Y/m/d"),
+                //     'originalFormat'=>$payload["originalFormat"],
+                //     'targetFormat'=>$payload["targetFormat"],
+                //     'file'=>$payload["file"],
+                //     'outputFile'=>$fileName.'.'.$outputFileFormat
+                // ));
+                // $insertPayload = json_decode($insertPayload,true);
+                // $controller->insert($insertPayload);
                 $response->payload = "HTTP/1.1 201 CREATED";
             }
+            else if($request->verb == "DELETE"){
+                
+            }
             else{
-                var_dump("Only GET and POST requests are supported");
+                var_dump("This is NOT a proper request.");
             }
         }
 
