@@ -17,7 +17,7 @@
             $formulaVariables = explode(" ", $formula["variables"]);
             $finishedFormula = $formula["formula"];
             for($i=0; $i < count($variables); $i++){
-                $finishedFormula = str_replace($formulaVariables[i], $variables[i], $formula);
+                $finishedFormula = str_replace($formulaVariables[i], $variables[i], $finishedFormula);
             }
             $result = eval('return '.$finishedFormula.';');
         }
