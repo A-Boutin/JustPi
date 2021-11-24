@@ -11,6 +11,17 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
+        function calculateResult($formulaId, $variables){
+            $formula = new formula();
+            $formula = $formula->getFormula($formulaId);
+            $formulaVariables = explode(" ", $formula["variables"]);
+            $finishedFormula = $formula["formula"];
+            for($i=0; $i < count($variables); $i++){
+                $finishedFormula = str_replace($formulaVariables[i], $variables[i], $formula);
+            }
+            $result = eval('return '.$finishedFormula.';');
+        }
+
         // function getClient($licenseKey){
         //     $client = new client();
         //     return $client->getClient($licenseKey);

@@ -11,9 +11,9 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
-        function getFormula($formula){
-            $formulaModel = new formula();
-            return $formulaModel->getClient($formula);
+        function getFormula($formulaId){
+            $formula = new formula();
+            return $formula->getFormula($formulaId);
         }
 
         function getAllFormulas(){
