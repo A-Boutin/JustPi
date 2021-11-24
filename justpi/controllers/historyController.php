@@ -1,8 +1,8 @@
 <?php
-    require_once("../model/videoconversion.php");
+    require_once("../model/formula.php");
     require_once("../database/connectionManager.php");
 
-    class VideoconversionController{
+    class ClientController{
         private $connectionManager;
         private $dbConnection;
 
@@ -11,11 +11,15 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
-        function insert($json){
-            $videoconversion = new videoconversion($json["clientID"], $json["requestDate"], $json["requestCompletionDate"], $json["originalFormat"], $json["targetFormat"], $json["file"], $json["outputFile"]);
-            // var_dump($videoconversion);
-            $videoconversion->insert();
-        }
+        // function getClient($licenseKey){
+        //     $client = new client();
+        //     return $client->getClient($licenseKey);
+        // }
+
+        // function getAllClients(){
+        //     $client = new client();
+        //     return $client->getAllClients();
+        // }
     }
     //Testing the controller
     // $clientController = new ClientController();
