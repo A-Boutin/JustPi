@@ -14,6 +14,13 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
+        function getFormulaFromId($formulaId){
+            $query = "select * from formula where formula_id='".$formulaId."'";
+            $statement = $this->dbConnection->query($query);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         function getFormula($formula){
             $query = "select * from formula where formula='".$formula."'";
             $statement = $this->dbConnection->query($query);
