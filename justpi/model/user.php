@@ -26,6 +26,7 @@
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
-    }
+        }
+
 }
 ?>

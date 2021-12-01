@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2021 at 02:41 PM
+-- Generation Time: Dec 01, 2021 at 06:00 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -47,10 +47,27 @@ CREATE TABLE `client` (
 DROP TABLE IF EXISTS `formula`;
 CREATE TABLE `formula` (
   `formula_id` int(11) NOT NULL,
+  `formula_name` varchar(64) NOT NULL,
   `variables` varchar(256) NOT NULL,
   `formula` varchar(256) NOT NULL,
   `description` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `formula`
+--
+
+INSERT INTO `formula` (`formula_id`, `formula_name`, `variables`, `formula`, `description`) VALUES
+(1, 'Circle Area', 'radius', 'pi()*pow(radius, 2)', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\CircleArea.png'),
+(2, 'Circle Circumference', 'radius', '2*pi()*radius', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\CircleCircumference.png'),
+(3, 'Parallelogram Area', 'base height', 'base*height', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\ParallelogramArea.png'),
+(5, 'Parallelogram Perimeter', 'base side ', '(2*side)+(2*base)', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\ParallelogramPerimeter.png'),
+(6, 'Rectangle Area', 'height width', 'height*width', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\RectangleArea.png'),
+(7, 'Rectangle Perimeter', 'height width', '(2*height)+(2*width)', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\RectanglePerimeter.png'),
+(8, 'Square Area', 'side', 'pow(side, 2)', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\SquareArea.png'),
+(9, 'Square Perimeter', 'side', '4*side', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\SquarePerimeter.png'),
+(10, 'Triangle Area', 'base height', '(base*height)/2', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\TriangleArea.png'),
+(11, 'Trapezoid Area', 'smallBase longBase height', '((smallBase+longBase)*height)/2', 'C:\\xampp\\htdocs\\JustPi\\justpi\\database\\Formulas\\TrapezoidArea.png');
 
 -- --------------------------------------------------------
 
@@ -127,7 +144,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `formula`
 --
 ALTER TABLE `formula`
-  MODIFY `formula_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `formula_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `history`
