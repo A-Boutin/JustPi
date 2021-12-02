@@ -29,7 +29,6 @@
         }
         
         function getAllFormulas(){
-
             $query = "select * from formula";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();

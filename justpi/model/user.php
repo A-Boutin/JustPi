@@ -21,11 +21,17 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function find($username) {
-            $query = "select * from user where username = '".$username."'";
+        function getUser($userId) {
+            $query = "select * from user where user_id = '".$userId."'";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
+        function addUser(){
+            $query = 'INSERT INTO user (username) VALUES (:username)';
+            $statement = $this->dbConnection->prepare($query);
+            $statement->execute(['username'=>$this->username]);
         }
 
 }

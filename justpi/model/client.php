@@ -31,11 +31,16 @@
         }
         
         function getAllClients(){
-
             $query = "select * from client";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        function addClient(){
+            $query = 'INSERT INTO client (client_id, license_key, client_name, license_start_date, license_end_date) VALUES (:client_id, :license_key, :client_name, :license_start_date, license_end_date)';
+            $statement = $this->dbConnection->prepare($query);
+            $statement->execute(['client_id'=>$this->client_id, 'license_key'=>$this->license_key, 'client_name'=>$this->client_name, 'license_start_date'=>$this->license_start_date, 'license_end_date'=>$this->license_end_date]);
         }
 }
 ?>
