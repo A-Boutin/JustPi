@@ -49,14 +49,74 @@
         // var_dump($controller->getAllClients());
         if($request->accept == "application/json"){
             if($request->verb == "GET"){
+                $key = $request->url_parameters["api"];
+                // var_dump($request->url_parameters);
+
+                $client = new ClientController();
+                $client = $client->getClientFromName($request->url_parameters["clientName"]);
+                // var_dump($client);
+
+                if($client["licenseKey"] == $key){
+                    $payload = array(
+                        "iss" => "http://localhost/client/clientjwtpost.php",
+                        "aud" => "http://localhost/videoconversionservice/api",
+                        "iat" => time(),
+                        "exp" => time() + 60 //In 1 minute
+                    );
+                    
+                    $jwt = JWT::encode($payload, $key, $hash);
+                    $response->payload = $jwt;
+                }
+
                 if($request->url_parameters["formula"] != "all"){
                     $response->payload = json_encode($controller->getEntryById($request->url_parameters["formula"]));
                     // var_dump($request->url_parameters);
                 }else{
                     $response->payload = json_encode($controller->getAllEntries());
                 }
+
             }
             else if($request->verb == "POST"){
+                try{
+                    $jwt;
+                    foreach (getallheaders() as $name => $value) {
+                        if($name == "Authorization"){
+                            $jwt = substr($value, 7);
+                        }
+                    }
+
+                    $decoded = JWT::decode($jwt, new Key($key, $hash));
+                    $decoded_array = (array) $decoded;
+                    // print($jwt);
+                    // print_r($decoded);
+                    // var_dump($decoded_array);
+            
+                    if(time() < $decoded_array["exp"]){
+                        $payload = json_decode($request->payload, true);
+                        $client = new clientController();
+                        $clientID = $client->getClient($payload["licenseKey"])["clientID"];
+                        $fileName = strtok($payload['file'], '.');
+                        $outputFileFormat = explode('/', $payload["targetFormat"])[1];
+                        $insertPayload = json_encode(array(
+                            'clientID'=>$clientID,
+                            'requestDate'=>date("Y/m/d"),
+                            'requestCompletionDate'=>date("Y/m/d"),
+                            'originalFormat'=>$payload["originalFormat"],
+                            'targetFormat'=>$payload["targetFormat"],
+                            'file'=>$payload["file"],
+                            'outputFile'=>$fileName.'.'.$outputFileFormat
+                        ));
+                        $insertPayload = json_decode($insertPayload,true);
+                        $controller->insert($insertPayload);
+                        $response->payload = "HTTP/1.1 201 CREATED";
+                    }
+                    else{
+                        $response->payload = "HTTP/1.1 401 Unauthorized";
+                    }
+                }catch (\Exception $e){
+                    echo $e;
+            }
+
                 // $payload = json_decode($request->payload, true);
                 // $client = new clientController();
                 // $clientID = $client->getClient($payload["licenseKey"])["clientID"];
