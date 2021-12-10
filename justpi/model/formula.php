@@ -14,7 +14,7 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
-        function getFormulaFromId($formulaId){
+        function getEntryById($formulaId){
             $query = "select * from formula where formula_id='".$formulaId."'";
             $statement = $this->dbConnection->query($query);
             $statement->execute();

@@ -49,8 +49,9 @@
         // var_dump($controller->getAllClients());
         if($request->accept == "application/json"){
             if($request->verb == "GET"){
-                if($request->url_parameters[0] != "all"){
-                    $response->payload = json_encode($controller->getEntry($request->url_parameters[0]));
+                if($request->url_parameters["formula"] != "all"){
+                    $response->payload = json_encode($controller->getEntryById($request->url_parameters["formula"]));
+                    // var_dump($request->url_parameters);
                 }else{
                     $response->payload = json_encode($controller->getAllEntries());
                 }
