@@ -2,7 +2,7 @@
     require_once("../model/formula.php");
     require_once("../database/connectionManager.php");
 
-    class ClientController{
+    class HistoryController{
         private $connectionManager;
         private $dbConnection;
 
