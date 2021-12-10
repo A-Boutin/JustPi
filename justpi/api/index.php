@@ -16,6 +16,28 @@
         }
     }
 
+    function validateAuthorization($jwt, $key, $hash){
+        try{
+            $jwt=null;
+            foreach (getallheaders() as $name => $value) {
+                if($name == "Authorization"){
+                    $jwt = substr($value, 7);
+                }
+            }
+            $decoded = JWT::decode($jwt, new Key($key, $hash));
+            $decoded_array = (array) $decoded;
+    
+            if(time() < $decoded_array["exp"]){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+
     // Testing the Request class
     $request = new Request();
 
@@ -119,7 +141,7 @@
                     }
                 }catch (\Exception $e){
                     echo $e;
-            }
+                }
 
                 // $payload = json_decode($request->payload, true);
                 // $client = new clientController();
