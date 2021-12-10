@@ -38,6 +38,8 @@
         }
     }
 
+    $hash = "HS256";
+
     // Testing the Request class
     $request = new Request();
 
