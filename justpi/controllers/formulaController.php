@@ -18,7 +18,7 @@
 
         function getAllFormulas(){
             $formula = new formula();
-            return $formula->getAllClients();
+            return $formula->getAllFormulas();
         }
 
         // function insert($json){
