@@ -75,32 +75,35 @@
         // var_dump($controller->getAllClients());
         if($request->accept == "application/json"){
             if($request->verb == "GET"){
-                $key = $request->url_parameters["api"];
-                // var_dump($request->url_parameters);
-
-                $client = new ClientController();
-                $client = $client->getEntryByName($request->url_parameters["clientName"]);
-                // var_dump($client);
-
-                if($client["licenseKey"] == $key){
-                    $payload = array(
-                        "iss" => "http://localhost/client/clientjwtpost.php",
-                        "aud" => "http://localhost/videoconversionservice/api",
-                        "iat" => time(),
-                        "exp" => time() + 60 //In 1 minute
-                    );
-                    
-                    $jwt = JWT::encode($payload, $key, $hash);
-                    $response->payload = $jwt;
-                }
-
-                if($request->url_parameters["formula"] != "all"){
-                    $response->payload = json_encode($controller->getEntryById($request->url_parameters["formula"]));
+                if($controllerName == "authController"){
+                    $key = $request->url_parameters["api"];
                     // var_dump($request->url_parameters);
-                }else{
-                    $response->payload = json_encode($controller->getAllEntries());
+    
+                    $client = new ClientController();
+                    $client = $client->getEntryByName($request->url_parameters["clientName"]);
+                    // var_dump($client);
+    
+                    if($client["licenseKey"] == $key){
+                        $payload = array(
+                            "iss" => "http://localhost/client",
+                            "aud" => "http://localhost/JustPi/justpi/api",
+                            "iat" => time(),
+                            "exp" => time() + 60 //In 1 minute
+                        );
+                        
+                        $jwt = JWT::encode($payload, $key, $hash);
+                        $response->payload = $jwt;
+                    }
                 }
-
+                else{
+                    if($request->url_parameters["formula"] != "all"){
+                        $response->payload = json_encode($controller->getEntryById($request->url_parameters["formula"]));
+                        // var_dump($request->url_parameters);
+                    }
+                    else{
+                        $response->payload = json_encode($controller->getAllEntries());
+                    }
+                }
             }
             else if($request->verb == "POST"){
                 try{
