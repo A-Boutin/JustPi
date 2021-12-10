@@ -29,6 +29,13 @@
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
         }
+
+        function getEntryByName($clientName){
+            $query = "select * from client where client_name='".$clientName."'";
+            $statement = $this->dbConnection->query($query);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
         
         function getAllEntries(){
             $query = "select * from client";

@@ -79,7 +79,7 @@
                 // var_dump($request->url_parameters);
 
                 $client = new ClientController();
-                $client = $client->getClientFromName($request->url_parameters["clientName"]);
+                $client = $client->getEntryByName($request->url_parameters["clientName"]);
                 // var_dump($client);
 
                 if($client["licenseKey"] == $key){

@@ -20,6 +20,11 @@
             $client = new client();
             return $client->getAllEntries();
         }
+
+        function getEntryByName($clientName){
+            $client = new client();
+            return $client->getEntryByName($clientName);
+        }
     }
     //Testing the controller
     // $clientController = new ClientController();
