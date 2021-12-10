@@ -1,6 +1,10 @@
 <?php
     require_once('Request.php');
     require_once('Response.php');
+    require '../vendor/autoload.php';
+
+    use Firebase\JWT\JWT;
+    use Firebase\JWT\Key;
     // NOTE-4:
     // We register our custom autoload function as a callback to be called when PHP is loading dependencies or require files.
     spl_autoload_register('autoLoad');
