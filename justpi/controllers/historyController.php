@@ -13,7 +13,7 @@
 
         function calculateResult($formulaId, $variables){
             $formula = new formula();
-            $formula = $formula->getFormulaFromId($formulaId);
+            $formula = $formula->getEntryById($formulaId);
             $formulaVariables = explode(" ", $formula["variables"]);
             $finishedFormula = $formula["formula"];
             for($i=0; $i < count($variables); $i++){

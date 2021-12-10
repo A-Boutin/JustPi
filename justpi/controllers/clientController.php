@@ -13,12 +13,12 @@
 
         function getClient($licenseKey){
             $client = new client();
-            return $client->getClient($licenseKey);
+            return $client->getEntry($licenseKey);
         }
 
         function getAllClients(){
             $client = new client();
-            return $client->getAllClients();
+            return $client->getAllEntries();
         }
     }
     //Testing the controller
