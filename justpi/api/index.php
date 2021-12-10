@@ -1,7 +1,7 @@
 <?php
     require_once('Request.php');
     require_once('Response.php');
-    require '../vendor/autoload.php';
+    require '../../vendor/autoload.php';
 
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
@@ -75,7 +75,7 @@
         // var_dump($controller->getAllClients());
         if($request->accept == "application/json"){
             if($request->verb == "GET"){
-                if($controllerName == "authController"){
+                if($controllerName == "AuthController"){
                     $key = $request->url_parameters["api"];
                     // var_dump($request->url_parameters);
     
@@ -83,7 +83,7 @@
                     $client = $client->getEntryByName($request->url_parameters["clientName"]);
                     // var_dump($client);
     
-                    if($client["licenseKey"] == $key){
+                    if($client["license_key"] == $key){
                         $payload = array(
                             "iss" => "http://localhost/client",
                             "aud" => "http://localhost/JustPi/justpi/api",

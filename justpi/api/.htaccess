@@ -2,4 +2,4 @@ RewriteEngine On
 
 RewriteBase /JustPi/justpi/api/
 
-RewriteRule ^/?([a-z]+)/(.*)$ index.php?$1=$2
+RewriteRule ^/?([a-z]+)/(.*)$ index.php?$1=$2 [QSA]
