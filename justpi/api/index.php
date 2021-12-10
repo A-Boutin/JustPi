@@ -49,7 +49,11 @@
         // var_dump($controller->getAllClients());
         if($request->accept == "application/json"){
             if($request->verb == "GET"){
-                $response->payload = json_encode($controller->getAllClients());
+                if($request->url_parameters[0] != "all"){
+                    $response->payload = json_encode($controller->getEntry($request->url_parameters[0]));
+                }else{
+                    $response->payload = json_encode($controller->getAllEntries());
+                }
             }
             else if($request->verb == "POST"){
                 // $payload = json_decode($request->payload, true);

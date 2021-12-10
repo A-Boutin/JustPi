@@ -11,14 +11,14 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
-        function getFormula($formulaId){
+        function getEntry($formulaId){
             $formula = new formula();
-            return $formula->getFormula($formulaId);
+            return $formula->getEntry($formulaId);
         }
 
-        function getAllFormulas(){
+        function getAllEntries(){
             $formula = new formula();
-            return $formula->getAllFormulas();
+            return $formula->getAllEntries();
         }
 
         // function insert($json){

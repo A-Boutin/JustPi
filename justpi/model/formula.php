@@ -21,14 +21,14 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        function getFormula($formula){
+        function getEntry($formula){
             $query = "select * from formula where formula='".$formula."'";
             $statement = $this->dbConnection->query($query);
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
         
-        function getAllFormulas(){
+        function getAllEntries(){
             $query = "select * from formula";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();

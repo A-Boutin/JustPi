@@ -24,7 +24,7 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        function getUser($userId) {
+        function getEntry($userId) {
             $query = "select * from user where user_id = '".$userId."'";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();

@@ -23,14 +23,14 @@
         //     $this->licenseKey = $licenseKey;
         // }
         
-        function getClient($licenseKey){
+        function getEntry($licenseKey){
             $query = "select * from client where licenseKey='".$licenseKey."'";
             $statement = $this->dbConnection->query($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
         }
         
-        function getAllClients(){
+        function getAllEntries(){
             $query = "select * from client";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
