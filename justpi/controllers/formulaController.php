@@ -28,7 +28,19 @@
 
         function getFormulaByLink($description) {
             $formula = new formula();
-            return $formula->getFormulaByLink($description);
+            return $formula->getEntryByLink($description);
+        }
+        
+        function displayFormulaImg($formulaID) {
+            $formula = new FormulaController();
+            $formula = $formula->getEntryByID($formulaID);
+            return '<img src="data:image/jpeg;base64,'.base64_encode( $formula['description'] ).'"/>';
+        }
+
+        function getImgByLink($link) {
+            $formula = new FormulaController();
+            $formula = $formula->getFormulaByLink($link);
+            return '<img src="data:image/jpeg;base64,'.base64_encode( $formula['link'] ).'"/>';
         }
         // function insert($json){
         //     $videoconversion = new videoconversion($json["clientID"], $json["requestDate"], $json["requestCompletionDate"], $json["originalFormat"], $json["targetFormat"], $json["file"], $json["outputFile"]);
