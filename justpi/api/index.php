@@ -16,6 +16,18 @@
         }
     }
 
+    function displayFormulaImg($formulaID) {
+        $formula = new FormulaController();
+        $formula = $formula->getEntryByID($formulaID);
+        return '<img src="data:image/jpeg;base64,'.base64_encode( $formula['description'] ).'"/>';
+    }
+
+    function getImgByLink($link) {
+        $formula = new FormulaController();
+        $formula = $formula->getFormulaByLink($link);
+        return '<img src="data:image/jpeg;base64,'.base64_encode( $formula['link'] ).'"/>';
+    }
+
     function validateAuthorization($key, $hash){
         try{
             $jwt=null;

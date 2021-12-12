@@ -26,6 +26,10 @@
             return $formula->getAllEntries();
         }
 
+        function getFormulaByLink($description) {
+            $formula = new formula();
+            return $formula->getFormulaByLink($description);
+        }
         // function insert($json){
         //     $videoconversion = new videoconversion($json["clientID"], $json["requestDate"], $json["requestCompletionDate"], $json["originalFormat"], $json["targetFormat"], $json["file"], $json["outputFile"]);
         //     // var_dump($videoconversion);

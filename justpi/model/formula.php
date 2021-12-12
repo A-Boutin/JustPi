@@ -40,5 +40,12 @@
             $statement = $this->dbConnection->prepare($query);
             $statement->execute(['variables'=>$this->variables, 'formula'=>$this->formula, 'description'=>$this->description]);
         }
+
+        function getEntryByLink($description){
+            $query = "select * from formula where description='".$description."'";
+            $statement = $this->dbConnection->query($query);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
 }
 ?>
