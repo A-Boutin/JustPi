@@ -24,8 +24,8 @@
         function getAllEntries(){
             $formulas = new formula();
             $formulas = $formulas->getAllEntries();
-            for($i=0;$i<sizeof($formulas);$i++){
-                $formulas[$i]["description"] = "<img src='".$formulas[$i]['description']."'/>";
+            for($i=0; $i<sizeof($formulas); $i++){
+                $formulas[$i]["description"] = "<img src='".$formulas[$i]['description']."'width='175' height='200'/>"; 
             } 
             return $formulas;
         }

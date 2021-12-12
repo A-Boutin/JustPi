@@ -3,7 +3,7 @@
     class History{
         private $historyId;
         private $formulaId;
-        private $userId;
+        private $clientID;
         private $variables;
         private $result;
         private $creationDate;
@@ -16,16 +16,16 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
         
-        function getAllUserHistory($userId){
+        function getAllUserHistory($clientID){
 
-            $query = "select * from history where user_id = '".$userId."'";
+            $query = "select * from history where client_id = '".$clientID."'";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        function getEntry($userId) {
-            $query = "select * from user where user_id = '".$userId."'";
+        function getEntry($clientID) {
+            $query = "select * from user where client_id = '".$clientID."'";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
@@ -39,9 +39,9 @@
         }
 
         function insert(){
-            $query = 'INSERT INTO history (formula_id, user_id, variables, result) VALUES (:formula_id, :user_id, :variables, :result)';
+            $query = 'INSERT INTO history (formula_id, user_id, variables, result) VALUES (:formula_id, :client_id, :variables, :result)';
             $statement = $this->dbConnection->prepare($query);
-            $statement->execute(['formula_id'=>$this->formulaId, 'user_id'=>$this->userId, 'variables'=>$this->variables, 'result'=>$this->result]);
+            $statement->execute(['formula_id'=>$this->formulaId, 'client_id'=>$this->clientID, 'variables'=>$this->variables, 'result'=>$this->result]);
         }
 }
 ?>
