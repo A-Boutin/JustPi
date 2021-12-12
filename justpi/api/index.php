@@ -16,7 +16,7 @@
         }
     }
 
-    function validateAuthorization($jwt, $key, $hash){
+    function validateAuthorization($key, $hash){
         try{
             $jwt=null;
             foreach (getallheaders() as $name => $value) {
@@ -98,8 +98,8 @@
                     }
                 }
                 else{
-                    if($request->url_parameters["formula"] != "all"){
-                        $response->payload = json_encode($controller->getEntryById($request->url_parameters["formula"]));
+                    if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
+                        $response->payload = json_encode($controller->getEntryById($request->url_parameters[array_key_first($request->url_parameters)]));
                         // var_dump($request->url_parameters);
                     }
                     else{
