@@ -90,7 +90,7 @@
                             "iss" => "http://localhost/client",
                             "aud" => "http://localhost/JustPi/justpi/api",
                             "iat" => time(),
-                            "exp" => time() + 60 //In 1 minute
+                            "exp" => time() + 60604800 //In 1 Week
                         );
                         
                         $jwt = JWT::encode($payload, $key, $hash);
