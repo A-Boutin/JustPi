@@ -23,10 +23,11 @@
             return $result;
         }
 
-        function insert($json){
-            $result = calculateResult($json["formulaId"], $json["variables"]);
-            $history = new history($json["clientId"], $json["formulaId"], $json["variables"], $result);
+        function insert($clientId, $formulaId, $variables){
+            $result = calculateResult($formulaId, $variables);
+            $history = new history($clientId, $formulaId, $variables, $result);
             $history->insert();
+            return $result;
         }
 
         // function insert($json){

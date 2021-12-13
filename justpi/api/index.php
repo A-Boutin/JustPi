@@ -98,12 +98,46 @@
                     }
                 }
                 else{
-                    if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
-                        $response->payload = json_encode($controller->getEntryById($request->url_parameters[array_key_first($request->url_parameters)]));
-                        // var_dump($request->url_parameters);
-                    }
-                    else{
-                        $response->payload = json_encode($controller->getAllEntries());
+                    try{
+                        $jwt;
+                        foreach (getallheaders() as $name => $value) {
+                            if($name == "Authorization"){
+                                $jwt = substr($value, 7);
+                            }
+                        }
+    
+                        $decoded = JWT::decode($jwt, new Key($key, $hash));
+                        $decoded_array = (array) $decoded;
+                        // print($jwt);
+                        // print_r($decoded);
+                        // var_dump($decoded_array);
+                
+                        if(time() < $decoded_array["exp"]){
+                            if($request->url_parameters["formula"] == "getResult"){
+                                $client = new clientController();
+                                $client = $client->getEntryByName($decoded_array["iss"]);
+                                $formulaController = new $controller();
+                                $formula = $formula->getEntryByName($request->url->parameters["formulaName"]);
+                                $result = $formulaController->getResult($client["client_id"], $formula["formula_id"], $request->url_parameters["variables"]);
+                                $response->payload = $result;
+                                $response->status = 200;
+                            }
+                            if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
+                                $response->payload = json_encode($controller->getEntryById($request->url_parameters[array_key_first($request->url_parameters)]));
+                                $response->status = 200;
+                                // var_dump($request->url_parameters);
+                            }
+                            else{
+                                $response->payload = json_encode($controller->getAllEntries());
+                                $response->status = 200;
+                            }
+                        }
+                        else{
+                            $response->payload = "HTTP/1.1 401 Unauthorized";
+                            $response->status = 401;
+                        }
+                    }catch (\Exception $e){
+                        echo $e;
                     }
                 }
             }
@@ -128,7 +162,7 @@
                         $client = new clientController();
                         $clientID = $client->getEntryById($decoded_array["iss"]);
                         $formula = new formulaController();
-                        $formula = $formula->getEntryByName($request->url->parameters);
+                        $formula = $formula->getEntryByName($request->url->parameters["formulaName"]);
 
                         $fileName = strtok($payload['file'], '.');
                         $outputFileFormat = explode('/', $payload["targetFormat"])[1];
