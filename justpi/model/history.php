@@ -39,9 +39,9 @@
         }
 
         function insert(){
-            $query = 'INSERT INTO history (formula_id, user_id, variables, result) VALUES (:formula_id, :client_id, :variables, :result)';
+            $query = 'INSERT INTO history (client_id, formula_id, variables, result) VALUES (:client_id, :formula_id, :variables, :result)';
             $statement = $this->dbConnection->prepare($query);
-            $statement->execute(['formula_id'=>$this->formulaId, 'client_id'=>$this->clientID, 'variables'=>$this->variables, 'result'=>$this->result]);
+            $statement->execute(['client_id'=>$this->clientID, 'formula_id'=>$this->formulaId, 'variables'=>$this->variables, 'result'=>$this->result]);
         }
 }
 ?>
