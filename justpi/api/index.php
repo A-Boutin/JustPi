@@ -87,7 +87,7 @@
     
                     if($client["license_key"] == $key){
                         $payload = array(
-                            "iss" => "http://localhost/client",
+                            "iss" => $request->url_parameters["clientName"],
                             "aud" => "http://localhost/JustPi/justpi/api",
                             "iat" => time(),
                             "exp" => time() + 60604800 //In 1 Week
@@ -137,6 +137,12 @@
                             'file'=>$payload["file"],
                             'outputFile'=>$fileName.'.'.$outputFileFormat
                         ));
+                        $insertPayload = json_encode(array(
+                            'formulaId'=>$formulaId,
+                            'clientId'=>$clientId,
+                            'variables'=>$variables,
+                            'result'=>$history->calculateResult($formulaId, $variables)
+                        ));
                         $insertPayload = json_decode($insertPayload,true);
                         $controller->insert($insertPayload);
                         $response->payload = "HTTP/1.1 201 CREATED";
@@ -165,9 +171,6 @@
                 // $insertPayload = json_decode($insertPayload,true);
                 // $controller->insert($insertPayload);
                 $response->payload = "HTTP/1.1 201 CREATED";
-            }
-            else if($request->verb == "DELETE"){
-                
             }
             else{
                 var_dump("This is NOT a proper request.");

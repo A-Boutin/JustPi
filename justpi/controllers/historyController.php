@@ -25,7 +25,7 @@
 
         function insert($json){
             $result = calculateResult($json["formulaId"], $json["variables"]);
-            $history = new history($json["formulaId"], $json["userId"], $json["variables"], $result);
+            $history = new history($json["clientId"], $json["formulaId"], $json["variables"], $result);
             $history->insert();
         }
 
