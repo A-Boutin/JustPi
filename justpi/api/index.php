@@ -38,6 +38,7 @@
         }
     }
 
+    $key = "KEYABC123";
     $hash = "HS256";
 
     // Testing the Request class
@@ -116,13 +117,15 @@
                             if($request->url_parameters["formula"] == "getResult"){
                                 $client = new clientController();
                                 $client = $client->getEntryByName($decoded_array["iss"]);
-                                $formulaController = new $controller();
-                                $formula = $formula->getEntryByName($request->url->parameters["formulaName"]);
-                                $result = $formulaController->getResult($client["client_id"], $formula["formula_id"], $request->url_parameters["variables"]);
-                                $response->payload = $result;
+                                $formulaController = new formulaController();
+                                $formula = $formulaController->getEntryByName($request->url_parameters["formulaName"]);
+                                // var_dump($formula);
+                                $result = $formulaController->getResult($client["client_id"], $formula[0]["formula_id"], $request->url_parameters["variables"]);
+                                // var_dump($result);
+                                $response->payload = json_encode($result);
                                 $response->status = 200;
                             }
-                            if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
+                            else if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
                                 $response->payload = json_encode($controller->getEntryById($request->url_parameters[array_key_first($request->url_parameters)]));
                                 $response->status = 200;
                                 // var_dump($request->url_parameters);
@@ -142,7 +145,6 @@
                 }
             }
             else if($request->verb == "POST"){
-                // PUT THIS IN GET SINCE THE CLIENT IS "GETTING" THE RESULT INSTEAD OF POSTING THE RESULT TO THE HISTORY
                 try{
                     $jwt;
                     foreach (getallheaders() as $name => $value) {
@@ -183,7 +185,7 @@
                         ));
                         $insertPayload = json_decode($insertPayload,true);
                         $controller->insert($insertPayload);
-                        $response->payload = "HTTP/1.1 201 CREATED"; // THIS SHOULD RETURN THE RESULT AND THE STATUS SHOULD BE SENT THIS SORT OF INFORMATION INSTEAD
+                        $response->payload = "HTTP/1.1 201 CREATED";
                     }
                     else{
                         $response->payload = "HTTP/1.1 401 Unauthorized";

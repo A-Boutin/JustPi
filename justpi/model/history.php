@@ -11,7 +11,17 @@
         private $connectionManager;
         private $dbConnection;
 
-        function __construct(){
+        // function __construct(){
+        //     $this->connectionManager = new ConnectionManager();
+        //     $this->dbConnection = $this->connectionManager->getConnection();
+        // }
+
+        function __construct($clientId, $formulaId, $variables, $result){
+            $this->clientID = $clientId;
+            $this->formulaId = $formulaId;
+            $this->variables = $variables;
+            $this->result = $result;
+
             $this->connectionManager = new ConnectionManager();
             $this->dbConnection = $this->connectionManager->getConnection();
         }

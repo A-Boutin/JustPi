@@ -20,7 +20,7 @@
             parse_str($_SERVER["QUERY_STRING"], $this->url_parameters);
             
             $this->payload = file_get_contents('php://input');
-            $this->payload_format = $_SERVER["CONTENT_TYPE"];
+            // $this->payload_format = $_SERVER["CONTENT_TYPE"];
         }
     }
 ?>

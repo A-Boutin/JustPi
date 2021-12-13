@@ -13,19 +13,20 @@
 
         function getEntryByName($formulaName){
             $formula = new formula();
-            return $formula->getEntryById($formulaName);
+            return $formula->getEntryByName($formulaName);
         }
 
         function getEntryById($formulaId){
             $formula = new formula();
             $formula = $formula->getEntryById($formulaId);
-            $formula[0]["description"] = "<img src='".$formula[0]['description']."'width='175' height='200'/>"; 
+            // $formula['description'] = "<img src='".$formula['description']."'width='175' height='200'/>"; 
             return $formula;
         }
 
         function getEntry($formula){
             $formula = new formula();
             $formula = $formula->getEntry($formula);
+            var_dump($formula);
             $formula[0]["description"] = "<img src='".$formula[0]['description']."'width='175' height='200'/>"; 
             return $formula;
         }
@@ -41,7 +42,8 @@
 
         function getResult($clientId, $formulaId, $variables){
             $historyController = new historyController();
-            return $historyController->insert($json);
+            $result = $historyController->insert($clientId, $formulaId, $variables);
+            return $result;
         }
 
         function getFormulaByLink($description) {
