@@ -114,18 +114,7 @@
                         // var_dump($decoded_array);
                 
                         if(time() < $decoded_array["exp"]){
-                            if($request->url_parameters["formula"] == "getResult"){
-                                $client = new clientController();
-                                $client = $client->getEntryByName($decoded_array["iss"]);
-                                $formulaController = new formulaController();
-                                $formula = $formulaController->getEntryByName($request->url_parameters["formulaName"]);
-                                // var_dump($formula);
-                                $result = $formulaController->getResult($client["client_id"], $formula[0]["formula_id"], $request->url_parameters["variables"]);
-                                // var_dump($result);
-                                $response->payload = json_encode($result);
-                                $response->status = 200;
-                            }
-                            else if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
+                            if($request->url_parameters[array_key_first($request->url_parameters)] != "all"){
                                 $response->payload = json_encode($controller->getEntryById($request->url_parameters[array_key_first($request->url_parameters)]));
                                 $response->status = 200;
                                 // var_dump($request->url_parameters);
@@ -160,32 +149,17 @@
                     // var_dump($decoded_array);
             
                     if(time() < $decoded_array["exp"]){
-                        $payload = json_decode($request->payload, true);
-                        $client = new clientController();
-                        $clientID = $client->getEntryById($decoded_array["iss"]);
-                        $formula = new formulaController();
-                        $formula = $formula->getEntryByName($request->url->parameters["formulaName"]);
-
-                        $fileName = strtok($payload['file'], '.');
-                        $outputFileFormat = explode('/', $payload["targetFormat"])[1];
-                        $insertPayload = json_encode(array(
-                            'clientID'=>$clientID,
-                            'requestDate'=>date("Y/m/d"),
-                            'requestCompletionDate'=>date("Y/m/d"),
-                            'originalFormat'=>$payload["originalFormat"],
-                            'targetFormat'=>$payload["targetFormat"],
-                            'file'=>$payload["file"],
-                            'outputFile'=>$fileName.'.'.$outputFileFormat
-                        ));
-                        $insertPayload = json_encode(array(
-                            'clientId'=>$clientId,
-                            'formulaId'=>$formulaId,
-                            'variables'=>$variables,
-                            'result'=>$history->calculateResult($formulaId, $variables)
-                        ));
-                        $insertPayload = json_decode($insertPayload,true);
-                        $controller->insert($insertPayload);
-                        $response->payload = "HTTP/1.1 201 CREATED";
+                        if($request->url_parameters["formula"] == "getResult"){
+                            $client = new clientController();
+                            $client = $client->getEntryByName($decoded_array["iss"]);
+                            $formulaController = new formulaController();
+                            $formula = $formulaController->getEntryByName($request->url_parameters["formulaName"]);
+                            // var_dump($formula);
+                            $result = $formulaController->getResult($client["client_id"], $formula[0]["formula_id"], $request->url_parameters["variables"]);
+                            // var_dump($result);
+                            $response->payload = json_encode($result);
+                            $response->status = 200;
+                        }
                     }
                     else{
                         $response->payload = "HTTP/1.1 401 Unauthorized";
@@ -193,24 +167,6 @@
                 }catch (\Exception $e){
                     echo $e;
                 }
-
-                // $payload = json_decode($request->payload, true);
-                // $client = new clientController();
-                // $clientID = $client->getClient($payload["licenseKey"])["clientID"];
-                // $fileName = strtok($payload['file'], '.');
-                // $outputFileFormat = explode('/', $payload["targetFormat"])[1];
-                // $insertPayload = json_encode(array(
-                //     'clientID'=>$clientID,
-                //     'requestDate'=>date("Y/m/d"),
-                //     'requestCompletionDate'=>date("Y/m/d"),
-                //     'originalFormat'=>$payload["originalFormat"],
-                //     'targetFormat'=>$payload["targetFormat"],
-                //     'file'=>$payload["file"],
-                //     'outputFile'=>$fileName.'.'.$outputFileFormat
-                // ));
-                // $insertPayload = json_decode($insertPayload,true);
-                // $controller->insert($insertPayload);
-                $response->payload = "HTTP/1.1 201 CREATED";
             }
             else{
                 var_dump("This is NOT a proper request.");

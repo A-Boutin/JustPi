@@ -33,23 +33,9 @@
             return $result;
         }
 
-        // function insert($json){
-        //     $videoconversion = new videoconversion($json["clientID"], $json["requestDate"], $json["requestCompletionDate"], $json["originalFormat"], $json["targetFormat"], $json["file"], $json["outputFile"]);
-        //     // var_dump($videoconversion);
-        //     $videoconversion->insert();
-        // }
-
-        // function getClient($licenseKey){
-        //     $client = new client();
-        //     return $client->getClient($licenseKey);
-        // }
-
-        // function getAllClients(){
-        //     $client = new client();
-        //     return $client->getAllClients();
-        // }
+        function getEntryById($historyId){
+            $history = new history();
+            return $history->getEntryById($historyId);
+        }
     }
-    //Testing the controller
-    // $clientController = new ClientController();
-    // var_dump($clientController->getAllClients());
 ?>

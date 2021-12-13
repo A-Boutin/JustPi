@@ -16,7 +16,7 @@
         //     $this->dbConnection = $this->connectionManager->getConnection();
         // }
 
-        function __construct($clientId, $formulaId, $variables, $result){
+        function __construct($clientId=null, $formulaId=null, $variables=null, $result=null){
             $this->clientID = $clientId;
             $this->formulaId = $formulaId;
             $this->variables = $variables;
@@ -34,8 +34,8 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        function getEntry($clientID) {
-            $query = "select * from user where client_id = '".$clientID."'";
+        function getEntryById($historyId) {
+            $query = "select * from history where history_id = '".$historyId."'";
             $statement = $this->dbConnection->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
