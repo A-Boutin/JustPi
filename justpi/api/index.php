@@ -149,7 +149,7 @@
                         ));
                         $insertPayload = json_decode($insertPayload,true);
                         $controller->insert($insertPayload);
-                        $response->payload = "HTTP/1.1 201 CREATED";
+                        $response->payload = "HTTP/1.1 201 CREATED"; // THIS SHOULD RETURN THE RESULT AND THE STATUS SHOULD BE SENT THIS SORT OF INFORMATION INSTEAD
                     }
                     else{
                         $response->payload = "HTTP/1.1 401 Unauthorized";
