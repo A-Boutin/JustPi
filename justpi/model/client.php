@@ -23,6 +23,13 @@
         //     $this->licenseKey = $licenseKey;
         // }
         
+        function getEntryById($clientId){
+            $query = "select * from client where client_id='".$clientId."'";
+            $statement = $this->dbConnection->query($query);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
         function getEntry($licenseKey){
             $query = "select * from client where licenseKey='".$licenseKey."'";
             $statement = $this->dbConnection->query($query);

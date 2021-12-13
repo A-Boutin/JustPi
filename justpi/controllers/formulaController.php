@@ -11,6 +11,11 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
+        function getEntryByName($formulaName){
+            $formula = new formula();
+            return $formula->getEntryById($formulaName);
+        }
+
         function getEntryById($formulaId){
             $formula = new formula();
             return $formula->getEntryById($formulaId);

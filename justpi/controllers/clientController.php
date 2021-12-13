@@ -11,12 +11,17 @@
             $this->dbConnection = $this->connectionManager->getConnection();
         }
 
-        function getClient($licenseKey){
+        function getEntryById($clientId){
+            $client = new client();
+            return $client->getEntryById($clientId);
+        }
+
+        function getEntry($licenseKey){
             $client = new client();
             return $client->getEntry($licenseKey);
         }
 
-        function getAllClients(){
+        function getAllEntries(){
             $client = new client();
             return $client->getAllEntries();
         }

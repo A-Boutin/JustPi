@@ -108,6 +108,7 @@
                 }
             }
             else if($request->verb == "POST"){
+                // PUT THIS IN GET SINCE THE CLIENT IS "GETTING" THE RESULT INSTEAD OF POSTING THE RESULT TO THE HISTORY
                 try{
                     $jwt;
                     foreach (getallheaders() as $name => $value) {
@@ -125,7 +126,10 @@
                     if(time() < $decoded_array["exp"]){
                         $payload = json_decode($request->payload, true);
                         $client = new clientController();
-                        $clientID = $client->getClient($payload["licenseKey"])["clientID"];
+                        $clientID = $client->getEntryById($decoded_array["iss"]);
+                        $formula = new formulaController();
+                        $formula = $formula->getEntryByName($request->url->parameters);
+
                         $fileName = strtok($payload['file'], '.');
                         $outputFileFormat = explode('/', $payload["targetFormat"])[1];
                         $insertPayload = json_encode(array(
@@ -138,8 +142,8 @@
                             'outputFile'=>$fileName.'.'.$outputFileFormat
                         ));
                         $insertPayload = json_encode(array(
-                            'formulaId'=>$formulaId,
                             'clientId'=>$clientId,
+                            'formulaId'=>$formulaId,
                             'variables'=>$variables,
                             'result'=>$history->calculateResult($formulaId, $variables)
                         ));
