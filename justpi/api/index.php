@@ -108,11 +108,11 @@
 
                         $jwt_parts = explode(".",$jwt);
                         $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
-                        var_dump($jwt_payload->iss);
+                        // var_dump($jwt_payload->iss);
 
                         $client = new ClientController();
                         $client = $client->getEntryByName($jwt_payload->iss);
-                        var_dump($client["license_key"]);
+                        // var_dump($client["license_key"]);
 
                         $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
                         $decoded_array = (array) $decoded;
@@ -151,11 +151,11 @@
 
                     $jwt_parts = explode(".",$jwt);
                     $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
-                    var_dump($jwt_payload->iss);
+                    // var_dump($jwt_payload->iss);
 
                     $client = new ClientController();
                     $client = $client->getEntryByName($jwt_payload->iss);
-                    var_dump($client["license_key"]);
+                    // var_dump($client["license_key"]);
 
                     $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
                     $decoded_array = (array) $decoded;
