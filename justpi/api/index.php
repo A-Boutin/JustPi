@@ -38,7 +38,6 @@
         }
     }
 
-    $key = "KEYABC123";
     $hash = "HS256";
 
     // Testing the Request class
@@ -106,8 +105,16 @@
                                 $jwt = substr($value, 7);
                             }
                         }
-    
-                        $decoded = JWT::decode($jwt, new Key($key, $hash));
+
+                        $jwt_parts = explode(".",$jwt);
+                        $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
+                        var_dump($jwt_payload->iss);
+
+                        $client = new ClientController();
+                        $client = $client->getEntryByName($jwt_payload->iss);
+                        var_dump($client["license_key"]);
+
+                        $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
                         $decoded_array = (array) $decoded;
                         // print($jwt);
                         // print_r($decoded);
@@ -142,7 +149,15 @@
                         }
                     }
 
-                    $decoded = JWT::decode($jwt, new Key($key, $hash));
+                    $jwt_parts = explode(".",$jwt);
+                    $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
+                    var_dump($jwt_payload->iss);
+
+                    $client = new ClientController();
+                    $client = $client->getEntryByName($jwt_payload->iss);
+                    var_dump($client["license_key"]);
+
+                    $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
                     $decoded_array = (array) $decoded;
                     // print($jwt);
                     // print_r($decoded);
