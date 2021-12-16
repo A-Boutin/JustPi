@@ -16,28 +16,6 @@
         }
     }
 
-    function validateAuthorization($key, $hash){
-        try{
-            $jwt=null;
-            foreach (getallheaders() as $name => $value) {
-                if($name == "Authorization"){
-                    $jwt = substr($value, 7);
-                }
-            }
-            $decoded = JWT::decode($jwt, new Key($key, $hash));
-            $decoded_array = (array) $decoded;
-    
-            if(time() < $decoded_array["exp"]){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }catch (\Exception $e){
-            return false;
-        }
-    }
-
     $hash = "HS256";
 
     // Testing the Request class
