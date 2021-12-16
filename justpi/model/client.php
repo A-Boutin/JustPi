@@ -10,7 +10,18 @@
         private $connectionManager;
         private $dbConnection;
 
-        function __construct(){
+        // function __construct(){
+        //     $this->connectionManager = new ConnectionManager();
+        //     $this->dbConnection = $this->connectionManager->getConnection();
+        // }
+
+        function __construct($clientId=null, $licenseKey=null, $clientName=null, $licenseStartDate=null, $licenseEndDate=null){
+            $this->clientId = $clientId;
+            $this->licenseKey = $licenseKey;
+            $this->clientName = $clientName;
+            $this->licenseStartDate = $licenseStartDate;
+            $this->licenseEndDate = $licenseEndDate;
+            
             $this->connectionManager = new ConnectionManager();
             $this->dbConnection = $this->connectionManager->getConnection();
         }
@@ -46,7 +57,7 @@
         function insert(){
             $query = 'INSERT INTO client (license_key, client_name, license_start_date, license_end_date) VALUES (:license_key, :client_name, :license_start_date, license_end_date)';
             $statement = $this->dbConnection->prepare($query);
-            $statement->execute(['license_key'=>$this->license_key, 'client_name'=>$this->client_name, 'license_start_date'=>$this->license_start_date, 'license_end_date'=>$this->license_end_date]);
+            $statement->execute(['license_key'=>$this->licenseKey, 'client_name'=>$this->clientName, 'license_start_date'=>$this->licenseStartDate, 'license_end_date'=>$this->licenseEndDate]);
         }
 }
 ?>

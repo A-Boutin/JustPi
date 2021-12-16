@@ -119,6 +119,12 @@
                 }
             }
             else if($request->verb == "POST"){
+                if($request->url_parameters["client"] == "insert"){
+                    $client = new clientController();
+                    $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
+                    $response->payload = "HTTP/1.1 200 OK";
+                    $response->status = 200;
+                }
                 try{
                     $jwt;
                     foreach (getallheaders() as $name => $value) {
@@ -159,12 +165,6 @@
                     }
                 }catch (\Exception $e){
                     echo $e;
-                }
-                if($request->url_parameters["client"] == "insert"){
-                    $client = new clientController();
-                    $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
-                    $response->payload = "HTTP/1.1 200 OK";
-                    $response->status = 200;
                 }
             }
             else{

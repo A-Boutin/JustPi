@@ -34,8 +34,9 @@
         function insert($licenseKey, $clientName){
             $licenseStartDate = date("YYYY-MM-DD");
             $licenseEndDate = date('YYYY-MM-DD', strtotime('+1 week'));
-            $client = new client($licenseKey, $clientName, $licenseStartDate, $licenseEndDate);
+            $client = new client(null, $licenseKey, $clientName, $licenseStartDate, $licenseEndDate);
             $client->insert();
+            return;
         }
     }
     //Testing the controller
