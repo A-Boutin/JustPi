@@ -55,7 +55,7 @@
         }
 
         function insert(){
-            $query = 'INSERT INTO client (license_key, client_name, license_start_date, license_end_date) VALUES (:license_key, :client_name, :license_start_date, license_end_date)';
+            $query = 'INSERT INTO client (license_key, client_name, license_start_date, license_end_date) VALUES (:license_key, :client_name, :license_start_date, :license_end_date)';
             $statement = $this->dbConnection->prepare($query);
             $statement->execute(['license_key'=>$this->licenseKey, 'client_name'=>$this->clientName, 'license_start_date'=>$this->licenseStartDate, 'license_end_date'=>$this->licenseEndDate]);
         }

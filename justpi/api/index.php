@@ -125,46 +125,48 @@
                     $response->payload = "HTTP/1.1 200 OK";
                     $response->status = 200;
                 }
-                try{
-                    $jwt;
-                    foreach (getallheaders() as $name => $value) {
-                        if($name == "Authorization"){
-                            $jwt = substr($value, 7);
+                else{
+                    try{
+                        $jwt;
+                        foreach (getallheaders() as $name => $value) {
+                            if($name == "Authorization"){
+                                $jwt = substr($value, 7);
+                            }
                         }
-                    }
 
-                    $jwt_parts = explode(".",$jwt);
-                    $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
-                    // var_dump($jwt_payload->iss);
+                        $jwt_parts = explode(".",$jwt);
+                        $jwt_payload = json_decode(base64_decode($jwt_parts[1]));
+                        // var_dump($jwt_payload->iss);
 
-                    $client = new ClientController();
-                    $client = $client->getEntryByName($jwt_payload->iss);
-                    // var_dump($client["license_key"]);
+                        $client = new ClientController();
+                        $client = $client->getEntryByName($jwt_payload->iss);
+                        // var_dump($client["license_key"]);
 
-                    $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
-                    $decoded_array = (array) $decoded;
-                    // print($jwt);
-                    // print_r($decoded);
-                    // var_dump($decoded_array);
-            
-                    if(time() < $decoded_array["exp"]){
-                        if($request->url_parameters["formula"] == "getResult"){
-                            $client = new clientController();
-                            $client = $client->getEntryByName($decoded_array["iss"]);
-                            $formulaController = new formulaController();
-                            $formula = $formulaController->getEntryByName($request->url_parameters["formulaName"]);
-                            // var_dump($formula);
-                            $result = $formulaController->getResult($client["client_id"], $formula[0]["formula_id"], $request->url_parameters["variables"]);
-                            // var_dump($result);
-                            $response->payload = json_encode($result);
-                            $response->status = 200;
+                        $decoded = JWT::decode($jwt, new Key($client["license_key"], $hash));
+                        $decoded_array = (array) $decoded;
+                        // print($jwt);
+                        // print_r($decoded);
+                        // var_dump($decoded_array);
+                
+                        if(time() < $decoded_array["exp"]){
+                            if($request->url_parameters["formula"] == "getResult"){
+                                $client = new clientController();
+                                $client = $client->getEntryByName($decoded_array["iss"]);
+                                $formulaController = new formulaController();
+                                $formula = $formulaController->getEntryByName($request->url_parameters["formulaName"]);
+                                // var_dump($formula);
+                                $result = $formulaController->getResult($client["client_id"], $formula[0]["formula_id"], $request->url_parameters["variables"]);
+                                // var_dump($result);
+                                $response->payload = json_encode($result);
+                                $response->status = 200;
+                            }
                         }
+                        else{
+                            $response->payload = "HTTP/1.1 401 Unauthorized";
+                        }
+                    }catch (\Exception $e){
+                        echo $e;
                     }
-                    else{
-                        $response->payload = "HTTP/1.1 401 Unauthorized";
-                    }
-                }catch (\Exception $e){
-                    echo $e;
                 }
             }
             else{
