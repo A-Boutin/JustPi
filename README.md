@@ -14,10 +14,10 @@ We made an index.php script that manages and handles authorization and the POST/
 <h2>How to install:</h2>
 1.  Create an account and install Postman: https://www.postman.com/ </br>
 2.  Install XAMPP (with PHP8): https://www.apachefriends.org/download.html </br>
-3.  Start the MySQL module.
+3.  Start the MySQL module. </br>
 4.  Unzip the JustPi folder. </br>
 5.  Locate the database file (.sql) in the "JustPi\justpi\database\" directory. </br>
-6.  Add the database file into the PhpMyAdmin database creator (can be easily accessed on the XAMPP control panel next to the MySQL module)
+6.  Add the database file into the PhpMyAdmin database creator (can be easily accessed on the XAMPP control panel next to the MySQL module) </br>
 7.  Open up Postman and use the API's endpoints to see if they work:
      &emsp;<h3>Examples of Entry Points:</h3>
       &emsp;GET: </br>
