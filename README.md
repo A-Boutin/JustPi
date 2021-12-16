@@ -1,6 +1,7 @@
 # JustPi
-<b>Math Api (for Web Services)</b></br></br>
+<b>Math Api (for Web Services)</b></br>
 
+This API allows developers to use certain functions that calculate various math expressions with the use of our built-in equations. </br></br>
 
 <h2>File Structure:</h2>
 
@@ -11,7 +12,7 @@ We made an index.php script that manages and handles authorization and the POST/
 ![fgh drawio_2_65](https://user-images.githubusercontent.com/54519892/146440711-45688aba-0101-4471-acad-649f86066f74.png)
 
 
-<h2>How to install:</h2>
+<h2>How to install and use:</h2>
 1.  Create an account and install Postman: https://www.postman.com/ </br>
 2.  Install XAMPP (with PHP8): https://www.apachefriends.org/download.html </br>
 3.  Start the MySQL module. </br>
