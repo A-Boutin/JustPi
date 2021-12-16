@@ -153,18 +153,18 @@
                             $response->payload = json_encode($result);
                             $response->status = 200;
                         }
-                        if($request->url_parameters["client"] == "insert"){
-                            $client = new clientController();
-                            $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
-                            $response->payload = "HTTP/1.1 200 OK";
-                            $response->status = 200;
-                        }
                     }
                     else{
                         $response->payload = "HTTP/1.1 401 Unauthorized";
                     }
                 }catch (\Exception $e){
                     echo $e;
+                }
+                if($request->url_parameters["client"] == "insert"){
+                    $client = new clientController();
+                    $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
+                    $response->payload = "HTTP/1.1 200 OK";
+                    $response->status = 200;
                 }
             }
             else{
