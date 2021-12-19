@@ -41,6 +41,13 @@
             return $statement->fetch(PDO::FETCH_ASSOC);
         }
 
+        function getAllEntries(){
+            $query = "select * from history";
+            $statement = $this->dbConnection->prepare($query);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         function getFormulaFromId($formulaId){
             $query = "select * from formula where formula_id='".$formulaId."'";
             $statement = $this->dbConnection->query($query);

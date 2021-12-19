@@ -16,6 +16,12 @@
             return $formula->getEntryByName($formulaName);
         }
 
+        /**
+         * @OA\GET(path="justpi/api/formula/{id}", tags={"Formula"}, summary="Gets formula specified by id",
+         * @OA\Response(response="200", description="OK"), 
+         * @OA\Response(response="401", description="Unauthorized"),
+         * )
+         */
         function getEntryById($formulaId){
             $formula = new formula();
             $formula = $formula->getEntryById($formulaId);
@@ -31,6 +37,12 @@
             return $formula;
         }
 
+        /**
+         * @OA\GET(path="justpi/api/formula/all", tags={"Formula"}, summary="Gets all formulas",
+         * @OA\Response(response="200", description="OK"), 
+         * @OA\Response(response="401", description="Unauthorized"),
+         * )
+         */
         function getAllEntries(){
             $formulas = new formula();
             $formulas = $formulas->getAllEntries();

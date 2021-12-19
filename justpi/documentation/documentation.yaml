@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: 'JustPi API'
+  version: '1.0'
+paths:
+  justpi/api/auth/authorize:
+    get:
+      tags:
+        - Authentication
+      summary: 'Gets your JWT Token'
+      parameters:
+        -
+          name: clientName
+          in: query
+          description: 'Your client name'
+          required: true
+        -
+          name: api
+          in: query
+          description: 'Your license key to be verified for authentication'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  'justpi/api/client/{id}':
+    get:
+      tags:
+        - Client
+      summary: 'Gets client specified by the id'
+      operationId: 0c12797d49babaa03dd0b47e4089e251
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  justpi/api/client/all:
+    get:
+      tags:
+        - Client
+      summary: 'Gets all clients'
+      operationId: aafa07c23b6eb2adf8f303e6ff6d2903
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  justpi/api/client/insert:
+    post:
+      tags:
+        - Client
+      summary: 'Inserts a client'
+      operationId: 16b5a861408d88c44cedadf5d5093918
+      parameters:
+        -
+          name: clientName
+          in: query
+          description: 'Specifies the name of the new client'
+          required: true
+        -
+          name: licenseKey
+          in: query
+          description: 'Specifies the license key the new client will have'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  'justpi/api/formula/{id}':
+    get:
+      tags:
+        - Formula
+      summary: 'Gets formula specified by id'
+      operationId: 956be52a1ff56c211d7fcc165c87914c
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  justpi/api/formula/all:
+    get:
+      tags:
+        - Formula
+      summary: 'Gets all formulas'
+      operationId: 9660e3385e85bcd5fffb69150756d997
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  justpi/api/formula/getResult:
+    post:
+      tags:
+        - History
+      summary: 'Inserts into history (Calculates results of specified formula using inputted variables)'
+      operationId: 8f0864db65d7138bee2bc5aa215b279b
+      parameters:
+        -
+          name: formulaName
+          in: query
+          description: 'Specifies the name of the formula you''d like to use'
+          required: true
+        -
+          name: variables
+          in: query
+          description: 'Specifies the variables you are inputting'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  'justpi/api/history/{id}':
+    get:
+      tags:
+        - History
+      summary: 'Gets history specified by id'
+      operationId: 293b675c3e29db7befc94d66cdbbac85
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  justpi/api/history/all:
+    get:
+      tags:
+        - History
+      summary: 'Gets all history'
+      operationId: f0acea2f0f967c0ef9f80a31f79fa0a2
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
