@@ -119,11 +119,13 @@
                 }
             }
             else if($request->verb == "POST"){
-                if($request->url_parameters["client"] == "insert"){
-                    $client = new clientController();
-                    $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
-                    $response->payload = "HTTP/1.1 200 OK";
-                    $response->status = 200;
+                if(array_key_exists("client", $request->url_parameters)){
+                    if($request->url_parameters["client"] == "insert"){
+                        $client = new clientController();
+                        $client = $client->insert($request->url_parameters["licenseKey"], $request->url_parameters["clientName"]);
+                        $response->payload = "HTTP/1.1 200 OK";
+                        $response->status = 200;
+                    }
                 }
                 else{
                     try{
