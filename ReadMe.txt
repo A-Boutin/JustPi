@@ -2,6 +2,8 @@ File Structure:
 
 For this API, we used the MVC architecture for our structure. Our API contains authentication, formula, history and client models/controllers. We have a database that is responsible for storing records every time someone uses a formula to calculate, retrieving the formulas, etc. We made an index.php script that manages and handles authorization and the POST/GET logic.
 
+Documentation:
+JustPi/justpi/documentation/index.php
 
 How to install and use:
 
