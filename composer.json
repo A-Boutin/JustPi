@@ -1,6 +1,5 @@
 {
     "require": {
-        "firebase/php-jwt": "^5.5",
-        "zircote/swagger-php": "^4.0"
+        "firebase/php-jwt": "^5.5"
     }
 }
